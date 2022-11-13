@@ -5,8 +5,22 @@
 #include <imgui-SFML.h>
 #include <imgui.h>
 
+#include "Engine.h"
+#include "iostream"
+#include "cmath"
+#include "iomanip"
+
+int main()
+{
+    std::cout << std::setprecision(10);
+    srand(time( 0 ));
+    Engine engine;
+    engine.start();
+    return 0;
+}
+
 // главный метод
-int main() {
+/*int main() {
     // создаём окно для рисования
     sf::RenderWindow window(sf::VideoMode(1280, 720), "ImGui + SFML = <3");
     // задаём частоту перерисовки окна
@@ -49,5 +63,5 @@ int main() {
     // завершаем работу imgui+sfml
     ImGui::SFML::Shutdown();
 
-    return 0;
-}
+    return 0;*/
+//}

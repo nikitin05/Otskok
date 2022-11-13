@@ -1595,6 +1595,54 @@ build src/CMakeFiles/example.dir/main.cpp.obj: CXX_COMPILER__example_Debug D$:/P
   OBJECT_DIR = src\CMakeFiles\example.dir
   OBJECT_FILE_DIR = src\CMakeFiles\example.dir
 
+build src/CMakeFiles/example.dir/Engine.cpp.obj: CXX_COMPILER__example_Debug D$:/Prog/Otskok/src/Engine.cpp || cmake_object_order_depends_target_example
+  DEFINES = -DIMGUI_USER_CONFIG=\"imconfig-SFML.h\"
+  DEP_FILE = src\CMakeFiles\example.dir\Engine.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-src -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-sfml-src -ID:/Prog/Otskok/cmake-build-debug/_deps/sfml-src/include
+  OBJECT_DIR = src\CMakeFiles\example.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\example.dir
+
+build src/CMakeFiles/example.dir/Circle.cpp.obj: CXX_COMPILER__example_Debug D$:/Prog/Otskok/src/Circle.cpp || cmake_object_order_depends_target_example
+  DEFINES = -DIMGUI_USER_CONFIG=\"imconfig-SFML.h\"
+  DEP_FILE = src\CMakeFiles\example.dir\Circle.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-src -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-sfml-src -ID:/Prog/Otskok/cmake-build-debug/_deps/sfml-src/include
+  OBJECT_DIR = src\CMakeFiles\example.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\example.dir
+
+build src/CMakeFiles/example.dir/Ball.cpp.obj: CXX_COMPILER__example_Debug D$:/Prog/Otskok/src/Ball.cpp || cmake_object_order_depends_target_example
+  DEFINES = -DIMGUI_USER_CONFIG=\"imconfig-SFML.h\"
+  DEP_FILE = src\CMakeFiles\example.dir\Ball.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-src -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-sfml-src -ID:/Prog/Otskok/cmake-build-debug/_deps/sfml-src/include
+  OBJECT_DIR = src\CMakeFiles\example.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\example.dir
+
+build src/CMakeFiles/example.dir/Draw.cpp.obj: CXX_COMPILER__example_Debug D$:/Prog/Otskok/src/Draw.cpp || cmake_object_order_depends_target_example
+  DEFINES = -DIMGUI_USER_CONFIG=\"imconfig-SFML.h\"
+  DEP_FILE = src\CMakeFiles\example.dir\Draw.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-src -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-sfml-src -ID:/Prog/Otskok/cmake-build-debug/_deps/sfml-src/include
+  OBJECT_DIR = src\CMakeFiles\example.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\example.dir
+
+build src/CMakeFiles/example.dir/Input.cpp.obj: CXX_COMPILER__example_Debug D$:/Prog/Otskok/src/Input.cpp || cmake_object_order_depends_target_example
+  DEFINES = -DIMGUI_USER_CONFIG=\"imconfig-SFML.h\"
+  DEP_FILE = src\CMakeFiles\example.dir\Input.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-src -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-sfml-src -ID:/Prog/Otskok/cmake-build-debug/_deps/sfml-src/include
+  OBJECT_DIR = src\CMakeFiles\example.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\example.dir
+
+build src/CMakeFiles/example.dir/Update.cpp.obj: CXX_COMPILER__example_Debug D$:/Prog/Otskok/src/Update.cpp || cmake_object_order_depends_target_example
+  DEFINES = -DIMGUI_USER_CONFIG=\"imconfig-SFML.h\"
+  DEP_FILE = src\CMakeFiles\example.dir\Update.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-src -ID:/Prog/Otskok/cmake-build-debug/_deps/imgui-sfml-src -ID:/Prog/Otskok/cmake-build-debug/_deps/sfml-src/include
+  OBJECT_DIR = src\CMakeFiles\example.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\example.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target example
@@ -1603,7 +1651,7 @@ build src/CMakeFiles/example.dir/main.cpp.obj: CXX_COMPILER__example_Debug D$:/P
 #############################################
 # Link the executable src\example.exe
 
-build src/example.exe: CXX_EXECUTABLE_LINKER__example_Debug src/CMakeFiles/example.dir/main.cpp.obj | _deps/imgui-sfml-build/libImGui-SFML_d.dll.a _deps/sfml-build/lib/libsfml-graphics-d.a _deps/sfml-build/lib/libsfml-window-d.a _deps/sfml-build/lib/libsfml-system-d.a || _deps/imgui-sfml-build/libImGui-SFML_d.dll _deps/sfml-build/lib/sfml-graphics-d-2.dll _deps/sfml-build/lib/sfml-system-d-2.dll _deps/sfml-build/lib/sfml-window-d-2.dll
+build src/example.exe: CXX_EXECUTABLE_LINKER__example_Debug src/CMakeFiles/example.dir/main.cpp.obj src/CMakeFiles/example.dir/Engine.cpp.obj src/CMakeFiles/example.dir/Circle.cpp.obj src/CMakeFiles/example.dir/Ball.cpp.obj src/CMakeFiles/example.dir/Draw.cpp.obj src/CMakeFiles/example.dir/Input.cpp.obj src/CMakeFiles/example.dir/Update.cpp.obj | _deps/imgui-sfml-build/libImGui-SFML_d.dll.a _deps/sfml-build/lib/libsfml-graphics-d.a _deps/sfml-build/lib/libsfml-window-d.a _deps/sfml-build/lib/libsfml-system-d.a || _deps/imgui-sfml-build/libImGui-SFML_d.dll _deps/sfml-build/lib/sfml-graphics-d-2.dll _deps/sfml-build/lib/sfml-system-d-2.dll _deps/sfml-build/lib/sfml-window-d-2.dll
   FLAGS = -g
   LINK_LIBRARIES = _deps/imgui-sfml-build/libImGui-SFML_d.dll.a  _deps/sfml-build/lib/libsfml-graphics-d.a  _deps/sfml-build/lib/libsfml-window-d.a  _deps/sfml-build/lib/libsfml-system-d.a  -lopengl32  -lglu32  -limm32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = src\CMakeFiles\example.dir
