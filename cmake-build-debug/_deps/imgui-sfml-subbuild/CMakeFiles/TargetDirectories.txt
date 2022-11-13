@@ -1,0 +1,3 @@
+D:/Prog/Otskok/cmake-build-debug/_deps/imgui-sfml-subbuild/CMakeFiles/imgui-sfml-populate.dir
+D:/Prog/Otskok/cmake-build-debug/_deps/imgui-sfml-subbuild/CMakeFiles/edit_cache.dir
+D:/Prog/Otskok/cmake-build-debug/_deps/imgui-sfml-subbuild/CMakeFiles/rebuild_cache.dir

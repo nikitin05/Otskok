@@ -1,0 +1,21 @@
+# ninja log v5
+0	698	6900664774336008	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	4729a210ebc1ae0f
+0	698	6900664774336008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	4729a210ebc1ae0f
+11258	11366	6900664881026008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	4cb026673a9b74ca
+698	11258	6900664879936008	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	aaa76bdcaa1876f
+12076	12268	6900664889806008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	336ea2a6585ba992
+11258	11366	6900664881026008	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	4cb026673a9b74ca
+11445	11523	6900664882606008	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	2884cd67eee53f7
+11366	11444	6900664881816008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	2bfcdc9863b228f3
+698	11258	6900664879936008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	aaa76bdcaa1876f
+11366	11444	6900664881816008	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	2bfcdc9863b228f3
+11445	11523	6900664882606008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	2884cd67eee53f7
+11523	11788	6900664885246008	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	9aa09a3260254e51
+11523	11788	6900664885246008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	9aa09a3260254e51
+11788	11867	6900664886046008	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	298b4683bbc45218
+11788	11867	6900664886046008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	298b4683bbc45218
+11867	12076	6900664888136008	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	1d226b92a46e1505
+11867	12076	6900664888136008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	1d226b92a46e1505
+12076	12268	6900664889806008	CMakeFiles/sfml-populate-complete	336ea2a6585ba992
+12076	12268	6900664889806008	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	336ea2a6585ba992
+12076	12268	6900664889806008	D:/Prog/Otskok/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	336ea2a6585ba992
