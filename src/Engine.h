@@ -6,10 +6,12 @@
 #define OTSKOK_ENGINE_H
 
 
-
+#include <imgui-SFML.h>
+#include <imgui.h>
 #include <SFML/Graphics.hpp>
 #include "Ball.h"
 #include "Circle.h"
+#include <bits/stdc++.h>
 
 using namespace sf;
 
@@ -17,6 +19,7 @@ class Engine
 {
 private:
 
+    Vector2f Resolution;
     RenderWindow m_Window;
 
     Sprite m_BackgroundSprite;
@@ -30,11 +33,13 @@ private:
     int target;
     Text target_text;
 
+
     bool checkWin();
 
     void input();
     void update(float dtAsSeconds);
     void draw();
+    void impact_draw();
     void endEvent(int type_of_damage);
 
 public:

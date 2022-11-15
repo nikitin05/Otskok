@@ -3,6 +3,9 @@
 //
 
 #include "Ball.h"
+#include "Function.h"
+
+
 
 Ball::Ball()
 {
@@ -57,6 +60,8 @@ int Ball::checkSegment(Circle circle)
     {
         angle = 360 - angle;
     }
+    last_impact.position.second = Vector2f (circle.radius - circle.width,0);
+    last_impact.position.second = rotation(last_impact.position.second, angle*M_PI/180);
     angle -= circle.round[0].angle;
     int ans = angle/22.5;
     ans = ans % 16;

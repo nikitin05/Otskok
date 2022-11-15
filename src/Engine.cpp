@@ -6,15 +6,15 @@
 #include "thread"
 
 
-//const double fps = 0.01;
-
 Engine::Engine()
 {
-    Vector2f resolution;
-    resolution.x = VideoMode::getDesktopMode().width;
-    resolution.y = VideoMode::getDesktopMode().height;
+    Resolution.x = VideoMode::getDesktopMode().width;
+    Resolution.y = VideoMode::getDesktopMode().height;
 
-    m_Window.create(VideoMode(resolution.x, resolution.y), "Simple Game Engine", Style::Fullscreen);
+    m_Window.create(VideoMode(Resolution.x, Resolution.y), "Otskok", Style::Fullscreen);
+
+    m_Window.setFramerateLimit(60);
+    ImGui::SFML::Init(m_Window);
 
     m_BackgroundTexture.loadFromFile("resources/background.png");
     m_BackgroundSprite.setTexture(m_BackgroundTexture);
@@ -26,6 +26,7 @@ Engine::Engine()
         m_Circle.round[i].target = rand() % 2;
         m_Circle.round[i].update(rand() % 6);
     }
+
 
     target = rand() % 6;
     target_text.setFont(font);
@@ -42,21 +43,15 @@ Engine::Engine()
 void Engine::start()
 {
     Clock clock;
+    Clock deltaClock;
     while (m_Window.isOpen())
     {
         Time dt = clock.restart();
         float dtAsSeconds = dt.asSeconds();
+        ImGui::SFML::Update(m_Window, deltaClock.restart());
         input();
         update(dtAsSeconds);
         draw();
-        /*dt =  clock.getElapsedTime();
-        dtAsSeconds += dt.asSeconds();
-        if(dtAsSeconds < fps)
-        {
-            int sleep = fps - dtAsSeconds;
-            std::this_thread::sleep_for(std::chrono::seconds(sleep));
-            Time dt = clock.restart();
-        }*/
         sf::Event event;
         while (m_Window.pollEvent(event))
         {
@@ -64,5 +59,6 @@ void Engine::start()
                 m_Window.close();
         }
     }
+    ImGui::SFML::Shutdown();
 }
 

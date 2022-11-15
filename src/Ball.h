@@ -9,6 +9,19 @@
 #include <SFML/Graphics.hpp>
 #include "Circle.h"
 
+
+struct event_impact
+{
+    std::pair<Vector2f, Vector2f> position;
+    std::pair<Vector2f, Vector2f> speed;
+    event_impact(){
+        position.first = Vector2f (0,0);
+        position.second = Vector2f (0,0);
+        speed.first = Vector2f (0,0);
+        speed.second = Vector2f (0,0);
+    }
+};
+
 using namespace sf;
 
 class Ball
@@ -20,6 +33,8 @@ private:
     Texture texture;
 
 public:
+    event_impact last_impact;
+
     Vector2f position;
 
     Vector2f speed;

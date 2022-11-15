@@ -1,7 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2022.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2022.2.4/bin/ninja/win/ninja.exe" -G Ninja -S D:\Prog\Otskok -B D:\Prog\Otskok\cmake-build-debug
--- Fetching SFML...
--- Fetching ImGui-SFML...
--- Found ImGui v1.82 in D:/Prog/Otskok/cmake-build-debug/_deps/imgui-src
--- Configuring done
--- Generating done
--- Build files have been written to: D:/Prog/Otskok/cmake-build-debug

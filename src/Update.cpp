@@ -1,4 +1,6 @@
 #include "Engine.h"
+#include "Function.h"
+
 
 
 
@@ -7,18 +9,11 @@ using namespace sf;
 
 const double friction = 0.5;
 
-Vector2f rotation(Vector2f a, double angle)
-{
-    Vector2f ans;
-    ans.x = a.x*cos(angle) - a.y*sin(angle);
-    ans.y = a.x*sin(angle) + a.y*cos(angle);
-    return ans;
-}
-
 float scalar(Vector2f a, Vector2f b)
 {
     return a.x*b.x + a.y*b.y;
 }
+
 
 bool Engine::checkWin()
 {
@@ -62,17 +57,21 @@ void Engine::update(float dtAsSeconds)
 {
     m_Ball.update(dtAsSeconds);
     m_Circle.update(dtAsSeconds);
+    m_Ball.last_impact.position.second = rotation(m_Ball.last_impact.position.second,dtAsSeconds*m_Circle.w_speed*M_PI/180);
     if(m_Ball.checkPosition(m_Circle) && m_Ball.time_after_impact > 0)
     {
         if(m_Ball.time_after_impact < 0.08)
         {
             endEvent(1);
         }
+        m_Ball.last_impact.position.first = m_Ball.position;
+        m_Ball.last_impact.speed.first = m_Ball.speed;
         int i = m_Ball.checkSegment(m_Circle);
         int ans = (m_Ball.condition + m_Circle.round[i].condition) % 6;
         m_Circle.round[i].update(ans);
         m_Ball.update(ans);
         impact(m_Ball, m_Circle, dtAsSeconds);
+        m_Ball.last_impact.speed.second = m_Ball.speed;
         if(checkWin())
         {
             endEvent(2);

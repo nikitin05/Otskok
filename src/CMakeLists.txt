@@ -1,4 +1,4 @@
-add_executable(example main.cpp Engine.cpp Engine.h Circle.cpp Circle.h Ball.cpp Ball.h Draw.cpp Input.cpp Update.cpp)
+add_executable(example main.cpp Engine.cpp Engine.h Circle.cpp Circle.h Ball.cpp Ball.h Draw.cpp Input.cpp Update.cpp Function.h Function.cpp)
         #resources/arial.ttf resources/icon.ico resources/background.png resources/ball.png resources/segment.png)
 target_link_libraries(example PRIVATE ImGui-SFML::ImGui-SFML)
 
