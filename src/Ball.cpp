@@ -60,15 +60,18 @@ int Ball::checkSegment(Circle circle)
     {
         angle = 360 - angle;
     }
-    last_impact.position.second = Vector2f (circle.radius - circle.width,0);
-    last_impact.position.second = rotation(last_impact.position.second, angle*M_PI/180);
+    last_impact.impact_position = Vector2f (circle.radius - circle.width,0);
+    last_impact.impact_position = rotation(last_impact.impact_position, angle*M_PI/180);
     angle -= circle.round[0].angle;
+    last_impact.round_angle = circle.round[0].angle;
+    while(angle < 0)
+    {
+        angle += 360;
+    }
+    last_impact.angle = angle;
     int ans = angle/22.5;
     ans = ans % 16;
-    if(ans < 0)
-    {
-        ans += 16;
-    }
+    last_impact.ans = ans;
     return ans;
 }
 

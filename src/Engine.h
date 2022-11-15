@@ -33,6 +33,9 @@ private:
     int target;
     Text target_text;
 
+    bool pOverlay_isOpen = true;
+    bool isPaused = true;
+
 
     bool checkWin();
 
@@ -41,6 +44,9 @@ private:
     void draw();
     void impact_draw();
     void endEvent(int type_of_damage);
+
+    void saveToFile();
+    void ShowFiles();
 
 public:
 

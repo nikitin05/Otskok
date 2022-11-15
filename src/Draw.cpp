@@ -1,5 +1,5 @@
 #include "Engine.h"
-//#include "iostream"
+#include "iostream"
 #include "thread"
 
 void Engine::impact_draw()
@@ -16,29 +16,32 @@ void Engine::impact_draw()
     auto pDrawList = ImGui::GetWindowDrawList();
 
     pDrawList->AddLine(
-            m_Ball.last_impact.position.first,
-            m_Ball.last_impact.position.first + m_Ball.last_impact.speed.first,
+            m_Ball.last_impact.center_position,
+            m_Ball.last_impact.center_position + m_Ball.last_impact.speed.first,
             ImColor(200,100,100),
             5
             );
     pDrawList->AddLine(
-            m_Ball.last_impact.position.first,
-            m_Ball.last_impact.position.first + m_Ball.last_impact.speed.second,
+            m_Ball.last_impact.center_position,
+            m_Ball.last_impact.center_position + m_Ball.last_impact.speed.second,
             ImColor(100,200,100),
             5
     );
     pDrawList->AddCircleFilled(
-            m_Circle.centerPosition + m_Ball.last_impact.position.second,
+            m_Circle.centerPosition + m_Ball.last_impact.impact_position,
             10,
             ImColor(100,100,200)
             );
-
     ImGui::End();
 }
 
 void Engine::draw()
 {
-    impact_draw();
+    if(pOverlay_isOpen)
+    {
+        impact_draw();
+    }
+    ShowFiles();
     m_Window.clear(Color::White);
 
     m_Window.draw(m_BackgroundSprite);

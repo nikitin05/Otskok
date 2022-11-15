@@ -49,12 +49,33 @@ void Engine::start()
         Time dt = clock.restart();
         float dtAsSeconds = dt.asSeconds();
         ImGui::SFML::Update(m_Window, deltaClock.restart());
-        input();
-        update(dtAsSeconds);
+        ImGui::Begin("Control");
+        if(ImGui::Button("Pause"))
+        {
+            isPaused = true;
+        }
+        if(ImGui::Button("Play"))
+        {
+            isPaused = false;
+        }
+        /*if(ImGui::Button("Open Overlay"))
+        {
+           pOverlay_isOpen = true;
+        }
+        if(ImGui::Button("Close Overlay"))
+        {
+          pOverlay_isOpen = false;
+         }*/
+        ImGui::End();
+        if(!isPaused) {
+            input();
+            update(dtAsSeconds);
+        }
         draw();
         sf::Event event;
         while (m_Window.pollEvent(event))
         {
+            ImGui::SFML::ProcessEvent(event);
             if (event.type == sf::Event::Closed)
                 m_Window.close();
         }

@@ -12,13 +12,20 @@
 
 struct event_impact
 {
-    std::pair<Vector2f, Vector2f> position;
+    Vector2f center_position;
+    Vector2f impact_position;
     std::pair<Vector2f, Vector2f> speed;
+    double round_angle;
+    double angle;
+    int ans;
     event_impact(){
-        position.first = Vector2f (0,0);
-        position.second = Vector2f (0,0);
+        center_position = Vector2f (0,0);
+        impact_position = Vector2f (0,0);
         speed.first = Vector2f (0,0);
         speed.second = Vector2f (0,0);
+        round_angle = 0.0;
+        angle = 0.0;
+        ans = 0;
     }
 };
 
