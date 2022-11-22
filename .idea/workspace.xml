@@ -24,12 +24,9 @@
   <component name="ChangeListManager">
     <list default="true" id="68e91f3a-3f16-4108-b4f1-3dc4821973dc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ball.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ball.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ball.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ball.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Draw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Draw.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Engine.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Update.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Update.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,24 +69,24 @@
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "D:/Repositories/Otskok/cmake-build-debug/src"
+    "last_opened_file_path": "H:/Repositories/Otskok/cmake-build-debug/src"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\Repositories\Otskok\cmake-build-debug\src" />
       <recent name="D:\Repositories\Otskok\cmake-build-debug\src" />
       <recent name="D:\Repositories\Otskok\cmake-build-debug\src\CMakeFiles" />
       <recent name="H:\Repositories\Otskok\src" />
-      <recent name="H:\Repositories\Otskok\cmake-build-debug\src" />
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.example">
-    <configuration name="ImGui-SFML" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Otskok" TARGET_NAME="ImGui-SFML" CONFIG_NAME="Debug">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="ImGui-SFML" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Otskok" TARGET_NAME="ImGui-SFML" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -138,6 +135,7 @@
       <updated>1668500090230</updated>
       <workItem from="1668500091692" duration="6608000" />
       <workItem from="1668528337119" duration="8410000" />
+      <workItem from="1669107700391" duration="3770000" />
     </task>
     <servers />
   </component>

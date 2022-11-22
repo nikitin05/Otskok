@@ -41,6 +41,7 @@ void Engine::draw()
     {
         impact_draw();
     }
+    ImGui::ShowDemoWindow();
     ShowFiles();
     m_Window.clear(Color::White);
 

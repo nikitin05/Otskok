@@ -30,9 +30,10 @@ private:
     Ball m_Ball;
     Circle m_Circle;
 
-    int target;
+    float target;
     Text target_text;
 
+    int game_speed = 100;
     bool pOverlay_isOpen = true;
     bool isPaused = true;
 

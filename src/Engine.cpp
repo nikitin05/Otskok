@@ -43,12 +43,12 @@ Engine::Engine()
 void Engine::start()
 {
     Clock clock;
-    Clock deltaClock;
     while (m_Window.isOpen())
     {
         Time dt = clock.restart();
+        dt = dt*(game_speed*0.01f);
         float dtAsSeconds = dt.asSeconds();
-        ImGui::SFML::Update(m_Window, deltaClock.restart());
+        ImGui::SFML::Update(m_Window, dt);
         ImGui::Begin("Control");
         if(ImGui::Button("Pause"))
         {
@@ -58,14 +58,21 @@ void Engine::start()
         {
             isPaused = false;
         }
-        /*if(ImGui::Button("Open Overlay"))
+        if(ImGui::Button("Open Overlay"))
         {
            pOverlay_isOpen = true;
         }
         if(ImGui::Button("Close Overlay"))
         {
           pOverlay_isOpen = false;
-         }*/
+         }
+        ImGui::DragInt("drag int 0..100", &game_speed, 1, 0, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
+        if(game_speed == 0)
+        {
+            isPaused = true;
+            game_speed = 1;
+        }
+
         ImGui::End();
         if(!isPaused) {
             input();
