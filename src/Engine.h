@@ -18,6 +18,7 @@ using namespace sf;
 class Engine
 {
 private:
+    Clock clock;
 
     Vector2f Resolution;
     RenderWindow m_Window;
@@ -53,6 +54,7 @@ public:
 
     Engine();
     void start();
+    void studing();
 };
 
 

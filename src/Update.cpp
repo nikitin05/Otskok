@@ -100,6 +100,35 @@ void Engine::update(float dtAsSeconds)
         {
             endEvent(1);
         }
+        if(m_Ball.last_impact.impact_position == Vector2f(0,0))
+        {
+            const float wrap_width = 200.0;
+            // задаём левый верхний край невидимого окна
+            ImGui::SetNextWindowPos(Resolution*0.5f);
+            // задаём правый нижний край невидимого окна
+            ImGui::SetNextWindowSize(Resolution);
+            ImGui::Begin("text", nullptr,
+                         ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+                         ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoBackground);
+            ImVec2 pos = ImGui::GetCursorScreenPos();
+            ImVec2 marker_min = ImVec2(pos.x + wrap_width, pos.y);
+            ImVec2 marker_max = ImVec2(pos.x + wrap_width + 10, pos.y + ImGui::GetTextLineHeight());
+            ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + wrap_width);
+            ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "This is the main event of the game - impact. Sum of number in the ball and in the sector is set to them. Your target is to set in all of the sectors with blue edge number that is showed at the right of the circle. Press escape to continue", wrap_width);
+            auto draw_list = ImGui::GetWindowDrawList();
+            // Draw actual text bounding box, following by marker of our expected limit (should not overlap!)
+            draw_list->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
+            draw_list->AddRectFilled(marker_min, marker_max, IM_COL32(255, 0, 255, 255));
+            ImGui::PopTextWrapPos();
+            ImGui::End();
+            ImGui::SFML::Render(m_Window);
+            m_Window.display();
+            while(!Keyboard::isKeyPressed(Keyboard::Escape))
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            }
+            m_Window.close();
+        }
         m_Ball.last_impact.center_position = m_Ball.position;
         m_Ball.last_impact.speed.first = m_Ball.speed;
         int i = m_Ball.checkSegment(m_Circle);
