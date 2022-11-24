@@ -102,26 +102,7 @@ void Engine::studing()
         float dtAsSeconds = dt.asSeconds();
         ImGui::SFML::Update(m_Window, dt);
 
-        const float wrap_width = 200.0;
-        // задаём левый верхний край невидимого окна
-        ImGui::SetNextWindowPos(Resolution*0.5f);
-        // задаём правый нижний край невидимого окна
-        ImGui::SetNextWindowSize(Resolution);
-        ImGui::Begin("text", nullptr,
-                     ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-                     ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoBackground);
-        ImVec2 pos = ImGui::GetCursorScreenPos();
-        ImVec2 marker_min = ImVec2(pos.x + wrap_width, pos.y);
-        ImVec2 marker_max = ImVec2(pos.x + wrap_width + 10, pos.y + ImGui::GetTextLineHeight());
-        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + wrap_width);
-        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Set game speed 100 to continue", wrap_width);
-        auto draw_list = ImGui::GetWindowDrawList();
-        // Draw actual text bounding box, following by marker of our expected limit (should not overlap!)
-        draw_list->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
-        draw_list->AddRectFilled(marker_min, marker_max, IM_COL32(255, 0, 255, 255));
-        ImGui::PopTextWrapPos();
-        ImGui::End();
-
+        event(1);
 
         ImGui::Begin("Control");
         if(ImGui::Button("Pause"))

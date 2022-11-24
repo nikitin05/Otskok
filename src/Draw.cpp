@@ -86,3 +86,30 @@ case 2:
     }
     m_Window.close();
 }
+
+void Engine::event(int type)
+{
+    const float wrap_width = 200.0;
+
+    Vector2f position = Resolution*0.5f;
+    const char* text = "Set game speed 100 to continue";
+    ImGui::TextColored(ImVec4(0.0f, 0.0f, 0.0f, 0.0f), text, wrap_width);
+    Vector2f size = Vector2f(wrap_width,ImGui::GetTextLineHeight());
+    Vector2f marker_min = position + Vector2f(wrap_width,0);
+    Vector2f marker_max = position + size;
+    // задаём левый верхний край невидимого окна
+    ImGui::SetNextWindowPos(position);
+    // задаём правый нижний край невидимого окна
+    ImGui::SetNextWindowSize(size);
+    ImGui::Begin("text", nullptr,
+                 ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+                 ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs );
+    ImGui::PushTextWrapPos(position.x + wrap_width);
+    ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), text, wrap_width);
+    auto draw_list = ImGui::GetWindowDrawList();
+    // Draw actual text bounding box, following by marker of our expected limit (should not overlap!)
+    draw_list->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
+    draw_list->AddRectFilled(marker_min, marker_max, IM_COL32(255, 0, 255, 255));
+    ImGui::PopTextWrapPos();
+    ImGui::End();
+}

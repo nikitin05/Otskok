@@ -50,6 +50,8 @@ private:
     void saveToFile();
     void ShowFiles();
 
+    void event(int type);
+
 public:
 
     Engine();
