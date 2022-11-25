@@ -37,7 +37,7 @@ private:
 
     Sprite sprite;
 
-    Texture texture;
+    Texture* texture;
 
 public:
     event_impact last_impact;

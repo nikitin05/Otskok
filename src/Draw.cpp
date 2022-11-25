@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Function.h"
 #include "iostream"
 #include "thread"
 
@@ -37,13 +38,12 @@ void Engine::impact_draw()
 
 void Engine::draw()
 {
-    if(pOverlay_isOpen)
+    m_Window.clear(Color::White);
+
+    if(condition_physicOverlay == physicOverlay_Open)
     {
         impact_draw();
     }
-    ImGui::ShowDemoWindow();
-    ShowFiles();
-    m_Window.clear(Color::White);
 
     m_Window.draw(m_BackgroundSprite);
     m_Window.draw(m_Ball.getSprite());
@@ -76,6 +76,7 @@ case 2:
     text.setFont(font);
     text.setCharacterSize(24);
     text.setString(s);
+    text.getString();
     text.setFillColor(Color::Black);
     text.setStyle(sf::Text::Bold);
     m_Window.draw(text);
@@ -87,29 +88,72 @@ case 2:
     m_Window.close();
 }
 
-void Engine::event(int type)
+void Engine::event(int event_id)
 {
-    const float wrap_width = 200.0;
+    //сразу завершаем функцию, если ничего выводить не нужно
+    if(event_id == 0)
+    {
+        return;
+    }
 
+    //задаем ширину выводимого текста
+    const float wrap_width = 200.0;
+    //задаем верхний-левый угол окна события
     Vector2f position = Resolution*0.5f;
-    const char* text = "Set game speed 100 to continue";
-    ImGui::TextColored(ImVec4(0.0f, 0.0f, 0.0f, 0.0f), text, wrap_width);
-    Vector2f size = Vector2f(wrap_width,ImGui::GetTextLineHeight());
-    Vector2f marker_min = position + Vector2f(wrap_width,0);
-    Vector2f marker_max = position + size;
+
+    //выбираем текст в зависимости от типа события
+    std::string text;
+    switch(event_id){
+        case 1:
+            text = u8"Шарик сломался из-за продолжительного соприкосновения с поверхностью";
+            break;
+        case 2:
+            text = u8"ВЫ ПОБЕДИЛИ!!!";
+            break;
+        case 3:
+            text = u8"Установите скорость игры в меню на 100%";
+            break;
+        case 4:
+            text = u8"Включите физическую визуализацию, сдвинув соответственный тумблер в меню. Она позволит вам на первых порах лучше понимать логику отскоков";
+            break;
+        case 5:
+            text = u8"Снимите игру с паузы, сдвинув соответственный тумблер в меню";
+            break;
+        case 6:
+            text = u8"Только что произошло самое главное событие в игре - столкновение шарика с вращающимся ободком. В результате направление и скорость движения "
+                   "шарика изменились(физическая визуализация показывает вам как) и числа, записанные в секторе, с которым столкнулся шарик, и в нем самом изменились "
+                   "и стали равны сумме изначальных по модулю 6. Число, стоящее в шарике или секторе визуализируется количеством точек в нем и принимает значения от 0 до 5. "
+                   "Для продолжения игры и закрытия окна сдвиньте тумблер в меню. ";
+            break;
+        case 7:
+            text = u8"";
+            break;
+    }
+
     // задаём левый верхний край невидимого окна
     ImGui::SetNextWindowPos(position);
     // задаём правый нижний край невидимого окна
-    ImGui::SetNextWindowSize(size);
+    ImGui::SetNextWindowSize(event_resolution+Vector2f(10,10));
+    //создаем окно
     ImGui::Begin("text", nullptr,
                  ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
                  ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs );
-    ImGui::PushTextWrapPos(position.x + wrap_width);
-    ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), text, wrap_width);
+
+    //задаем ограничение на ширину текста
+    ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + wrap_width);
+    //пишем текст
+    ImGui::Text(text.c_str(),wrap_width);
+
+    //перерасчет ширины окна, чтобы в нее влезал текст
+    event_resolution = ImGui::GetItemRectMax();
+    event_resolution -= position;
+
+    //рисуем рамочку вокруг текста
     auto draw_list = ImGui::GetWindowDrawList();
-    // Draw actual text bounding box, following by marker of our expected limit (should not overlap!)
-    draw_list->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
-    draw_list->AddRectFilled(marker_min, marker_max, IM_COL32(255, 0, 255, 255));
+    draw_list->AddRect(ImGui::GetItemRectMin(), event_resolution + position, IM_COL32(255, 255, 0, 255));
+    //отменяем ограничение на ширине текста
     ImGui::PopTextWrapPos();
+
+    //закрываем окно
     ImGui::End();
 }

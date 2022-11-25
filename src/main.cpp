@@ -15,6 +15,6 @@ int main()
     std::cout << std::setprecision(10);
     srand(time( 0 ));
     Engine engine;
-    engine.studing();
+    engine.start();
     return 0;
 }

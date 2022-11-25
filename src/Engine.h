@@ -15,12 +15,14 @@
 
 using namespace sf;
 
+
 class Engine
 {
 private:
     Clock clock;
 
     Vector2f Resolution;
+    Vector2f event_resolution;
     RenderWindow m_Window;
 
     Sprite m_BackgroundSprite;
@@ -35,8 +37,15 @@ private:
     Text target_text;
 
     int game_speed = 100;
-    bool pOverlay_isOpen = true;
-    bool isPaused = true;
+
+    enum physicOverlay { physicOverlay_Open, physicOverlay_Close };
+    const char* physicOverlay_names[2] = { "Вкл", "Выкл"};
+    int condition_physicOverlay = physicOverlay_Close;
+
+    enum game { game_Open, game_Close };
+    const char* game_names[2] = { "Вкл", "Выкл"};
+    int condition_game = game_Close;
+
 
 
     bool checkWin();
@@ -50,7 +59,8 @@ private:
     void saveToFile();
     void ShowFiles();
 
-    void event(int type);
+    void event(int event_id);
+    int event_id = 0;
 
 public:
 

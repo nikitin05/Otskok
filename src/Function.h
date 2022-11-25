@@ -9,10 +9,15 @@
 #include <imgui.h>
 #include <SFML/Graphics.hpp>
 #include "cmath"
+#include <iostream>
 
 using namespace sf;
 
 
 Vector2f rotation(Vector2f a, double angle);
+
+float scalar(Vector2f a, Vector2f b);
+
+float max(float a, float b);
 
 #endif //OTSKOK_FUNCTION_H

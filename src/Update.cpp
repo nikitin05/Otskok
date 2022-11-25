@@ -9,10 +9,7 @@ using namespace sf;
 
 const double friction = 0.5;
 
-float scalar(Vector2f a, Vector2f b)
-{
-    return a.x*b.x + a.y*b.y;
-}
+
 
 // запись в файл
 void Engine::saveToFile() {
@@ -35,13 +32,13 @@ void Engine::saveToFile() {
 // работа с файлами
 void Engine::ShowFiles() {
     // если не раскрыта панель `Files`
-    if (!ImGui::CollapsingHeader("Files"))
+    if (!ImGui::CollapsingHeader("Сохранения"))
         // заканчиваем выполнение
         return;
 
     ImGui::PushID(0);
     // создаём кнопку сохранения
-    if (ImGui::Button("Save")) {
+    if (ImGui::Button("Сохранить игру")) {
         // сохраняем задачу в файл
         saveToFile();
     }
@@ -85,7 +82,8 @@ void impact(Ball &m_Ball, Circle &m_Circle, float dtAsSeconds)
     }
     speed_t_new = sqrt(speed_t_new);
     d = - d * speed_n/d_l;
-    m_Ball.speed = (d*(speed_t + speed_t_new) + speed_t_new*m_Ball.speed)/speed_t;
+    float k = speed_t_new/speed_t;
+    m_Ball.speed = d*(k + 1) + k*m_Ball.speed;
     m_Ball.time_after_impact = -0.25;
 }
 
@@ -99,35 +97,6 @@ void Engine::update(float dtAsSeconds)
         if(m_Ball.time_after_impact < 0.08)
         {
             endEvent(1);
-        }
-        if(m_Ball.last_impact.impact_position == Vector2f(0,0))
-        {
-            const float wrap_width = 200.0;
-            // задаём левый верхний край невидимого окна
-            ImGui::SetNextWindowPos(Resolution*0.5f);
-            // задаём правый нижний край невидимого окна
-            ImGui::SetNextWindowSize(Resolution);
-            ImGui::Begin("text", nullptr,
-                         ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-                         ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoBackground);
-            ImVec2 pos = ImGui::GetCursorScreenPos();
-            ImVec2 marker_min = ImVec2(pos.x + wrap_width, pos.y);
-            ImVec2 marker_max = ImVec2(pos.x + wrap_width + 10, pos.y + ImGui::GetTextLineHeight());
-            ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + wrap_width);
-            ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "This is the main event of the game - impact. Sum of number in the ball and in the sector is set to them. Your target is to set in all of the sectors with blue edge number that is showed at the right of the circle. Press escape to continue", wrap_width);
-            auto draw_list = ImGui::GetWindowDrawList();
-            // Draw actual text bounding box, following by marker of our expected limit (should not overlap!)
-            draw_list->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
-            draw_list->AddRectFilled(marker_min, marker_max, IM_COL32(255, 0, 255, 255));
-            ImGui::PopTextWrapPos();
-            ImGui::End();
-            ImGui::SFML::Render(m_Window);
-            m_Window.display();
-            while(!Keyboard::isKeyPressed(Keyboard::Escape))
-            {
-                std::this_thread::sleep_for(std::chrono::milliseconds(10));
-            }
-            m_Window.close();
         }
         m_Ball.last_impact.center_position = m_Ball.position;
         m_Ball.last_impact.speed.first = m_Ball.speed;

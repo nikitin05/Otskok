@@ -8,8 +8,8 @@
 
 Engine::Engine()
 {
-    Resolution.x = VideoMode::getDesktopMode().width;
-    Resolution.y = VideoMode::getDesktopMode().height;
+    Resolution = Vector2f(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height);
+    event_resolution = Vector2f(0,0);
 
     m_Window.create(VideoMode(Resolution.x, Resolution.y), "Otskok", Style::Fullscreen);
 
@@ -19,7 +19,20 @@ Engine::Engine()
     m_BackgroundTexture.loadFromFile("resources/background.png");
     m_BackgroundSprite.setTexture(m_BackgroundTexture);
     ball.loadFromFile("resources/ball.png");
+
+    // загрузка шрифта для кириллицы
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->Clear();
+    //io.Fonts->AddFontDefault();
+
+    // нужно добавить файл со шрифтами и указать к нему путь
+    io.Fonts->AddFontFromFileTTF("resources/arial.ttf", 16.f, NULL,
+                                 ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
     font.loadFromFile("resources/arial.ttf");
+
+    // фиксирование изменений
+    ImGui::SFML::UpdateFontTexture();
+
     m_Ball.setSprite(ball);
     for(int i = 0; i < 16; i++)
     {
@@ -38,308 +51,87 @@ Engine::Engine()
     position.x = 900;
     position.y = 300;
     target_text.setPosition(position);
+
+    event_id = 3;
+    game_speed = 146;
 }
 
 void Engine::start()
 {
     while (m_Window.isOpen())
     {
+        studing();
+
+        sf::Event sf_event;
+        while (m_Window.pollEvent(sf_event))
+        {
+            ImGui::SFML::ProcessEvent(sf_event);
+            if (sf_event.type == sf::Event::Closed)
+                m_Window.close();
+        }
+
         Time dt = clock.restart();
         dt = dt*(game_speed*0.01f);
         float dtAsSeconds = dt.asSeconds();
         ImGui::SFML::Update(m_Window, dt);
-        ImGui::Begin("Control");
-        if(ImGui::Button("Pause"))
-        {
-            isPaused = true;
-        }
-        if(ImGui::Button("Play"))
-        {
-            isPaused = false;
-        }
-        if(ImGui::Button("Open Overlay"))
-        {
-           pOverlay_isOpen = true;
-        }
-        if(ImGui::Button("Close Overlay"))
-        {
-          pOverlay_isOpen = false;
-         }
-        ImGui::DragInt("drag int 0..100", &game_speed, 1, 0, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
-        if(game_speed == 0)
-        {
-            isPaused = true;
-            game_speed = 1;
-        }
-
-        ImGui::End();
-        if(!isPaused) {
+        if(condition_game == game_Open) {
             input();
             update(dtAsSeconds);
         }
-        draw();
-        sf::Event event;
-        while (m_Window.pollEvent(event))
+
+
+
+        ImGui::Begin("Меню");
+
+        ShowFiles();
+
+        const char* condition_game_name = (condition_game >= 0 && condition_game < 2) ? game_names[condition_game] : "Unknown";
+        ImGui::SliderInt("Состояние игры", &condition_game, 0, 1, condition_game_name);
+
+        const char* condition_physicOverlay_name = (condition_physicOverlay >= 0 && condition_physicOverlay < 2) ? physicOverlay_names[condition_physicOverlay] : "Unknown";
+        ImGui::SliderInt("Физическая визуализация", &condition_physicOverlay, 0, 1, condition_physicOverlay_name);
+        ImGui::DragInt("Скорость игры (%)", &game_speed, 1, 1, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
+
+        if(ImGui::Button("Выйти на рабочий стол"))
         {
-            ImGui::SFML::ProcessEvent(event);
-            if (event.type == sf::Event::Closed)
-                m_Window.close();
+            m_Window.close();
+            break;
         }
+
+        ImGui::End();
+
+        ImGui::ShowDemoWindow();
+
+        event(event_id);
+
+        draw();
     }
     ImGui::SFML::Shutdown();
 }
 
 void Engine::studing()
 {
-    m_Ball.speed = Vector2f(0,0);
-    game_speed = 146;
-    isPaused = true;
-    pOverlay_isOpen = false;
-    while (m_Window.isOpen() && game_speed != 100)
+    if(event_id == 3 || event_id == 4 || event_id == 5)
     {
-        Time dt = clock.restart();
-        dt = dt*(game_speed*0.01f);
-        float dtAsSeconds = dt.asSeconds();
-        ImGui::SFML::Update(m_Window, dt);
-
-        event(1);
-
-        ImGui::Begin("Control");
-        if(ImGui::Button("Pause"))
+        m_Ball.speed = Vector2f (0,0);
+        event_id = 3;
+        if(game_speed == 100)
         {
-            isPaused = true;
-        }
-        if(ImGui::Button("Play"))
-        {
-            isPaused = false;
-        }
-        if(ImGui::Button("Open Overlay"))
-        {
-            pOverlay_isOpen = true;
-        }
-        if(ImGui::Button("Close Overlay"))
-        {
-            pOverlay_isOpen = false;
-        }
-        ImGui::DragInt("drag int 0..100", &game_speed, 1, 0, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
-        if(game_speed == 0)
-        {
-            isPaused = true;
-            game_speed = 1;
-        }
-
-        ImGui::End();
-        if(!isPaused) {
-            input();
-            update(dtAsSeconds);
-        }
-        draw();
-        sf::Event event;
-        while (m_Window.pollEvent(event))
-        {
-            ImGui::SFML::ProcessEvent(event);
-            if (event.type == sf::Event::Closed)
-                m_Window.close();
+            event_id = 4;
+            if(condition_physicOverlay == physicOverlay_Open)
+            {
+                event_id = 5;
+                if(condition_game == game_Open)
+                {
+                    event_id = 0;
+                    m_Ball.speed = Vector2f (100,0);
+                }
+            }
         }
     }
-    while (m_Window.isOpen() && isPaused)
+    else if(m_Ball.last_impact.impact_position != Vector2f(0,0) && event_id != 6)
     {
-        Time dt = clock.restart();
-        dt = dt*(game_speed*0.01f);
-        float dtAsSeconds = dt.asSeconds();
-        ImGui::SFML::Update(m_Window, dt);
-
-        const float wrap_width = 200.0;
-        // задаём левый верхний край невидимого окна
-        ImGui::SetNextWindowPos(Resolution*0.5f);
-        // задаём правый нижний край невидимого окна
-        ImGui::SetNextWindowSize(Resolution);
-        ImGui::Begin("text", nullptr,
-                     ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-                     ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoBackground);
-        ImVec2 pos = ImGui::GetCursorScreenPos();
-        ImVec2 marker_min = ImVec2(pos.x + wrap_width, pos.y);
-        ImVec2 marker_max = ImVec2(pos.x + wrap_width + 10, pos.y + ImGui::GetTextLineHeight());
-        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + wrap_width);
-        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Press play to continue", wrap_width);
-        auto draw_list = ImGui::GetWindowDrawList();
-        // Draw actual text bounding box, following by marker of our expected limit (should not overlap!)
-        draw_list->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
-        draw_list->AddRectFilled(marker_min, marker_max, IM_COL32(255, 0, 255, 255));
-        ImGui::PopTextWrapPos();
-        ImGui::End();
-
-
-        ImGui::Begin("Control");
-        if(ImGui::Button("Pause"))
-        {
-            isPaused = true;
-        }
-        if(ImGui::Button("Play"))
-        {
-            isPaused = false;
-        }
-        if(ImGui::Button("Open Overlay"))
-        {
-            pOverlay_isOpen = true;
-        }
-        if(ImGui::Button("Close Overlay"))
-        {
-            pOverlay_isOpen = false;
-        }
-        ImGui::DragInt("drag int 0..100", &game_speed, 1, 0, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
-        if(game_speed == 0)
-        {
-            isPaused = true;
-            game_speed = 1;
-        }
-
-        ImGui::End();
-        if(!isPaused) {
-            input();
-            update(dtAsSeconds);
-        }
-        draw();
-        sf::Event event;
-        while (m_Window.pollEvent(event))
-        {
-            ImGui::SFML::ProcessEvent(event);
-            if (event.type == sf::Event::Closed)
-                m_Window.close();
-        }
+        event_id = 6;
+        condition_game = game_Close;
     }
-    while (m_Window.isOpen() && !pOverlay_isOpen)
-    {
-        Time dt = clock.restart();
-        dt = dt*(game_speed*0.01f);
-        float dtAsSeconds = dt.asSeconds();
-        ImGui::SFML::Update(m_Window, dt);
-
-        const float wrap_width = 200.0;
-        // задаём левый верхний край невидимого окна
-        ImGui::SetNextWindowPos(Resolution*0.5f);
-        // задаём правый нижний край невидимого окна
-        ImGui::SetNextWindowSize(Resolution);
-        ImGui::Begin("text", nullptr,
-                     ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-                     ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoBackground);
-        ImVec2 pos = ImGui::GetCursorScreenPos();
-        ImVec2 marker_min = ImVec2(pos.x + wrap_width, pos.y);
-        ImVec2 marker_max = ImVec2(pos.x + wrap_width + 10, pos.y + ImGui::GetTextLineHeight());
-        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + wrap_width);
-        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Open phis overlay to continue", wrap_width);
-        auto draw_list = ImGui::GetWindowDrawList();
-        // Draw actual text bounding box, following by marker of our expected limit (should not overlap!)
-        draw_list->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
-        draw_list->AddRectFilled(marker_min, marker_max, IM_COL32(255, 0, 255, 255));
-        ImGui::PopTextWrapPos();
-        ImGui::End();
-
-
-        ImGui::Begin("Control");
-        if(ImGui::Button("Pause"))
-        {
-            isPaused = true;
-        }
-        if(ImGui::Button("Play"))
-        {
-            isPaused = false;
-        }
-        if(ImGui::Button("Open Overlay"))
-        {
-            pOverlay_isOpen = true;
-        }
-        if(ImGui::Button("Close Overlay"))
-        {
-            pOverlay_isOpen = false;
-        }
-        ImGui::DragInt("drag int 0..100", &game_speed, 1, 0, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
-        if(game_speed == 0)
-        {
-            isPaused = true;
-            game_speed = 1;
-        }
-
-        ImGui::End();
-        if(!isPaused) {
-            input();
-            update(dtAsSeconds);
-        }
-        draw();
-        sf::Event event;
-        while (m_Window.pollEvent(event))
-        {
-            ImGui::SFML::ProcessEvent(event);
-            if (event.type == sf::Event::Closed)
-                m_Window.close();
-        }
-    }
-    while (m_Window.isOpen() && isPaused)
-    {
-        Time dt = clock.restart();
-        dt = dt*(game_speed*0.01f);
-        float dtAsSeconds = dt.asSeconds();
-        ImGui::SFML::Update(m_Window, dt);
-
-        const float wrap_width = 200.0;
-        // задаём левый верхний край невидимого окна
-        ImGui::SetNextWindowPos(Resolution*0.5f);
-        // задаём правый нижний край невидимого окна
-        ImGui::SetNextWindowSize(Resolution);
-        ImGui::Begin("text", nullptr,
-                     ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-                     ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoBackground);
-        ImVec2 pos = ImGui::GetCursorScreenPos();
-        ImVec2 marker_min = ImVec2(pos.x + wrap_width, pos.y);
-        ImVec2 marker_max = ImVec2(pos.x + wrap_width + 10, pos.y + ImGui::GetTextLineHeight());
-        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + wrap_width);
-        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Press play to continue", wrap_width);
-        auto draw_list = ImGui::GetWindowDrawList();
-        // Draw actual text bounding box, following by marker of our expected limit (should not overlap!)
-        draw_list->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
-        draw_list->AddRectFilled(marker_min, marker_max, IM_COL32(255, 0, 255, 255));
-        ImGui::PopTextWrapPos();
-        ImGui::End();
-
-
-        ImGui::Begin("Control");
-        if(ImGui::Button("Pause"))
-        {
-            isPaused = true;
-        }
-        if(ImGui::Button("Play"))
-        {
-            isPaused = false;
-        }
-        if(ImGui::Button("Open Overlay"))
-        {
-            pOverlay_isOpen = true;
-        }
-        if(ImGui::Button("Close Overlay"))
-        {
-            pOverlay_isOpen = false;
-        }
-        ImGui::DragInt("drag int 0..100", &game_speed, 1, 0, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
-        if(game_speed == 0)
-        {
-            isPaused = true;
-            game_speed = 1;
-        }
-
-        ImGui::End();
-        if(!isPaused) {
-            input();
-            update(dtAsSeconds);
-        }
-        draw();
-        sf::Event event;
-        while (m_Window.pollEvent(event))
-        {
-            ImGui::SFML::ProcessEvent(event);
-            if (event.type == sf::Event::Closed)
-                m_Window.close();
-        }
-    }
-    m_Ball.speed = Vector2f(100,0);
-    start();
 }

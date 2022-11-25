@@ -2,10 +2,6 @@
 
 void Engine::input()
 {
-    if (Keyboard::isKeyPressed(Keyboard::Escape))
-    {
-        m_Window.close();
-    }
     if (Keyboard::isKeyPressed(Keyboard::A))
     {
         m_Circle.w_speed -= 0.25;
