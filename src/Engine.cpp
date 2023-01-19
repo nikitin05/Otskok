@@ -5,6 +5,29 @@
 #include "Engine.h"
 #include "thread"
 
+void Engine::setLevel() {
+
+    m_Circle.type = game_mode;
+    for(int i = 0; i < m_Circle.size[m_Circle.type]; i++)
+    {
+        bool target = rand() % 2;
+        m_Circle.round[i].setPosition(game_mode,360.0/m_Circle.size[m_Circle.type] * i, m_Circle.centerPosition, m_Circle.segment);
+        m_Circle.round[i].update(target);
+        m_Circle.round[i].update(rand() % 6);
+
+    }
+
+    target = rand() % 6;
+    target_text.setFont(font);
+    target_text.setCharacterSize(24);
+    target_text.setString(std::to_string(target));
+    target_text.setFillColor(Color::Black);
+    target_text.setStyle(sf::Text::Bold);
+    Vector2f position;
+    position.x = 900;
+    position.y = 300;
+    target_text.setPosition(position);
+}
 
 Engine::Engine()
 {
@@ -34,33 +57,50 @@ Engine::Engine()
     ImGui::SFML::UpdateFontTexture();
 
     m_Ball.setSprite(ball);
-    for(int i = 0; i < 16; i++)
+
+    setLevel();
+
+    //event_id = 3;
+    //game_speed = 146;
+}
+
+int Engine::menu()
+{
+    ImGui::Begin("Меню");
+
+    ShowFiles();
+
+    const char* condition_game_name = (condition_game >= 0 && condition_game < 2) ? game_names[condition_game] : "Unknown";
+    ImGui::SliderInt("Состояние игры", &condition_game, 0, 1, condition_game_name);
+
+    const char* condition_physicOverlay_name = (condition_physicOverlay >= 0 && condition_physicOverlay < 2) ? physicOverlay_names[condition_physicOverlay] : "Unknown";
+    ImGui::SliderInt("Физическая визуализация", &condition_physicOverlay, 0, 1, condition_physicOverlay_name);
+    ImGui::DragInt("Скорость игры (%)", &game_speed, 1, 1, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
+
+    const char* game_mode_name = (game_mode >= 0 && game_mode  < 2) ? game_mode_names[game_mode ] : "Unknown";
+    int old_game_mod = game_mode;
+    ImGui::SliderInt("Игровой режим", &game_mode, 0, 1, game_mode_name);
+    if(old_game_mod != game_mode)
     {
-        m_Circle.round[i].target = rand() % 2;
-        m_Circle.round[i].update(rand() % 6);
+        setLevel();
     }
 
+    if(ImGui::Button("Выйти на рабочий стол"))
+    {
+        m_Window.close();
+        return -1;
+    }
 
-    target = rand() % 6;
-    target_text.setFont(font);
-    target_text.setCharacterSize(24);
-    target_text.setString(std::to_string(target));
-    target_text.setFillColor(Color::Black);
-    target_text.setStyle(sf::Text::Bold);
-    Vector2f position;
-    position.x = 900;
-    position.y = 300;
-    target_text.setPosition(position);
+    ImGui::End();
 
-    event_id = 3;
-    game_speed = 146;
+    return 0;
 }
 
 void Engine::start()
 {
     while (m_Window.isOpen())
     {
-        studing();
+        //studing();
 
         sf::Event sf_event;
         while (m_Window.pollEvent(sf_event))
@@ -78,29 +118,15 @@ void Engine::start()
             input();
             update(dtAsSeconds);
         }
-
-
-
-        ImGui::Begin("Меню");
-
-        ShowFiles();
-
-        const char* condition_game_name = (condition_game >= 0 && condition_game < 2) ? game_names[condition_game] : "Unknown";
-        ImGui::SliderInt("Состояние игры", &condition_game, 0, 1, condition_game_name);
-
-        const char* condition_physicOverlay_name = (condition_physicOverlay >= 0 && condition_physicOverlay < 2) ? physicOverlay_names[condition_physicOverlay] : "Unknown";
-        ImGui::SliderInt("Физическая визуализация", &condition_physicOverlay, 0, 1, condition_physicOverlay_name);
-        ImGui::DragInt("Скорость игры (%)", &game_speed, 1, 1, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
-
-        if(ImGui::Button("Выйти на рабочий стол"))
-        {
-            m_Window.close();
-            break;
+        else{
+            int result = menu();
+            if(result == -1)
+            {
+                break;
+            }
         }
 
-        ImGui::End();
-
-        ImGui::ShowDemoWindow();
+        //ImGui::ShowDemoWindow();
 
         event(event_id);
 

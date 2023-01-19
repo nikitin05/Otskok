@@ -18,6 +18,7 @@ struct event_impact
     double round_angle;
     double angle;
     int ans;
+    double time_after_impact;
     event_impact(){
         center_position = Vector2f (0,0);
         impact_position = Vector2f (0,0);
@@ -26,6 +27,7 @@ struct event_impact
         round_angle = 0.0;
         angle = 0.0;
         ans = 0;
+        time_after_impact = 0.0;
     }
 };
 
@@ -45,9 +47,8 @@ public:
     Vector2f position;
 
     Vector2f speed;
-    double w_speed;
-    long double k_energy;
-    double time_after_impact;
+    float w_speed;
+    float k_energy;
 
     Ball();
 

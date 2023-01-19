@@ -46,6 +46,12 @@ private:
     const char* game_names[2] = { "Вкл", "Выкл"};
     int condition_game = game_Close;
 
+    enum mode { game_12, game_16 };
+    const char* game_mode_names[2] = { "12", "16"};
+    int  game_mode = game_16;
+
+    int menu();
+    void setLevel();
 
 
     bool checkWin();

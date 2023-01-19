@@ -7,8 +7,7 @@
 Segment::Segment()
 {
     condition = 0;
-    target = 1;
-    radius = 324;
+    target = true;
 
     angle = 0.0;
 }
@@ -18,11 +17,14 @@ Sprite Segment::getSprite()
     return sprite;
 }
 
-void Segment::setPosition(double angle, Vector2f position, Texture &texture)
+void Segment::setPosition(int type, double angle, Vector2f position, Texture &texture)
 {
-    this->angle += angle;
+    this->type = type;
+    sprite.rotate(-this->angle);
+    this->angle = angle;
     sprite.setTexture(texture);
-    sprite.setTextureRect(IntRect(condition*radius,136*target,radius,136));
+    sprite.setTextureRect(IntRect(texturePosition[type].x+width[type]*condition,texturePosition[type].y+height[type]*target,width[type],height[type]));
+    sprite.setOrigin(spriteOrigin[type]);
     sprite.rotate(angle);
     sprite.setPosition(position);
 }
@@ -36,8 +38,29 @@ void Segment::update(double angle)
 void Segment::update(int condition)
 {
     this->condition = condition;
-    sprite.setTextureRect(IntRect(condition*radius,136*target,radius,136));
+    sprite.setTextureRect(IntRect(texturePosition[type].x+width[type]*condition,texturePosition[type].y+height[type]*target,width[type],height[type]));
 }
+
+void Segment::update(bool target) {
+    this->target = target;
+}
+
+bool Segment::checkExecution(int tar) {
+    if(target == 1 && condition != tar)
+    {
+        return false;
+    }
+    return true;
+}
+
+int Segment::getCondition() {
+    return condition;
+}
+
+double Segment::getAngle() {
+    return angle;
+}
+
 
 Circle::Circle()
 {
@@ -47,18 +70,14 @@ Circle::Circle()
     centerPosition.y = 400;
 
     segment.loadFromFile("resources/segment.png");
+    segment.setSmooth(true);
 
-    for(int i = 0; i < 16; i++)
-    {
-        round[i].setPosition(22.5 * i, centerPosition, segment);
-    }
-
-    radius = round[0].radius;
+    radius = 324;
 }
 
 void Circle::update(float elapsedTime)
 {
-    for(int i = 0;i < 16; i++)
+    for(int i = 0;i < size[type]; i++)
     {
         round[i].update(elapsedTime*w_speed);
     }

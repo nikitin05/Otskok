@@ -20,32 +20,42 @@ public:
 
     Sprite getSprite();
 
-    double angle;
-
-    int radius;
-
-    void setPosition(double angle, Vector2f position, Texture &texture);
+    void setPosition(int type, double angle, Vector2f position, Texture &texture);
 
     void update(double angle);
 
     void update(int condition);
 
-    int condition;
+    void update(bool target);
 
-    int target;
+    bool checkExecution(int tar);
+
+    int getCondition();
+
+    double getAngle();
 
 private:
     Sprite sprite;
 
     Texture texture;
+
+    int type;
+
+    const int width[2] = {71,71};
+    const int height[2] = {190,142};
+    const Vector2f texturePosition[2] = {Vector2f(0,284),Vector2f(0,0)};
+    const Vector2f spriteOrigin[2] = {Vector2f(-253.0,95.0),Vector2f(-260.0,10.0)};
+
+    int condition;
+    bool target;
+
+    double angle;
 };
 
 class Circle
 {
 public:
     Circle();
-
-    Sprite getSprite();
 
     void update(float elapsedTime);
 
@@ -60,6 +70,9 @@ public:
     Segment round[16];
 
     Texture segment;
+
+    int type;
+    int size[2] = {12,16};
 };
 
 

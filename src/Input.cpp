@@ -11,4 +11,9 @@ void Engine::input()
     {
          m_Circle.w_speed += 0.25;
     }
+    if(Keyboard::isKeyPressed(Keyboard::Escape))
+    {
+        condition_game = game_Close;
+    }
 }
+

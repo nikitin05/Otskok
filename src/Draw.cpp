@@ -47,7 +47,7 @@ void Engine::draw()
 
     m_Window.draw(m_BackgroundSprite);
     m_Window.draw(m_Ball.getSprite());
-    for(int i = 0; i < 16; i++)
+    for(int i = 0; i < m_Circle.size[m_Circle.type]; i++)
     {
         m_Window.draw(m_Circle.round[i].getSprite());
     }

@@ -25,17 +25,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68e91f3a-3f16-4108-b4f1-3dc4821973dc" name="Changes" comment="">
+    <list default="true" id="68e91f3a-3f16-4108-b4f1-3dc4821973dc" name="Changes" comment="Переработка меню и обучения">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_11_2022_19_28_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_11_2022_19_28__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ball.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ball.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ball.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ball.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Circle.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Circle.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Circle.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Circle.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Draw.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Draw.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Engine.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Function.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Function.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Function.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Function.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Input.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Update.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Update.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/segment.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/segment.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,12 +83,13 @@
     "cf.advertisement.text.has.clang-format": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "D:/Prog/untitled",
+    "last_opened_file_path": "D:/Repositories/Otskok/cmake-build-debug/src/resources",
     "settings.editor.selected.configurable": "File.Encoding"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Repositories\Otskok\cmake-build-debug\src\resources" />
       <recent name="D:\Repositories\Otskok\cmake-build-debug\src" />
       <recent name="H:\Repositories\Otskok\cmake-build-debug\src" />
       <recent name="D:\Repositories\Otskok\cmake-build-debug\src\CMakeFiles" />
@@ -145,8 +149,18 @@
       <workItem from="1669107700391" duration="3770000" />
       <workItem from="1669226882371" duration="7123000" />
       <workItem from="1669315949891" duration="5989000" />
-      <workItem from="1669383686642" duration="19415000" />
+      <workItem from="1669383686642" duration="19569000" />
+      <workItem from="1674067480575" duration="5122000" />
+      <workItem from="1674135707159" duration="22564000" />
     </task>
+    <task id="LOCAL-00001" summary="Переработка меню и обучения">
+      <created>1669408582867</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669408582867</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,5 +176,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Переработка меню и обучения" />
+    <option name="LAST_COMMIT_MESSAGE" value="Переработка меню и обучения" />
   </component>
 </project>

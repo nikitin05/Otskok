@@ -19,7 +19,6 @@ Ball::Ball()
 
     condition = 0;
 
-    time_after_impact = 0.1;
 }
 
 Sprite Ball::getSprite()
@@ -62,27 +61,26 @@ int Ball::checkSegment(Circle circle)
     }
     last_impact.impact_position = Vector2f (circle.radius - circle.width,0);
     last_impact.impact_position = rotation(last_impact.impact_position, angle*M_PI/180);
-    angle -= circle.round[0].angle;
-    last_impact.round_angle = circle.round[0].angle;
+    if(abs(last_impact.angle - angle) < 10.0)
+    {
+        return -1;
+    }
+    last_impact.angle = angle;
+    angle -= circle.round[0].getAngle();
+    last_impact.round_angle = circle.round[0].getAngle();
     while(angle < 0)
     {
         angle += 360;
     }
-    last_impact.angle = angle;
-    int ans = angle/22.5;
-    ans = ans % 16;
+    int ans = angle/360.0*circle.size[circle.type];
+    ans = ans % circle.size[circle.type];
     last_impact.ans = ans;
     return ans;
 }
 
-void impact(Circle circle)
-{
-
-}
-
 void Ball::update(float elapsedTime)
 {
-    time_after_impact += elapsedTime;
+    last_impact.time_after_impact += elapsedTime;
     sprite.rotate(w_speed*elapsedTime);
     position += speed*elapsedTime;
     sprite.setPosition(position);
