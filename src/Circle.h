@@ -20,6 +20,8 @@ public:
 
     Sprite getSprite();
 
+    void setGameTargetCondition(int game_target_condition);
+
     void setPosition(int type, double angle, Vector2f position, Texture &texture);
 
     void update(double angle);
@@ -28,7 +30,10 @@ public:
 
     void update(bool target);
 
-    bool checkExecution(int tar);
+    void checkExecution(int tar);
+
+    bool isExecution();
+
 
     int getCondition();
 
@@ -41,13 +46,15 @@ private:
 
     int type;
 
-    const int width[2] = {71,71};
+    const int width[2] = {90,71};
     const int height[2] = {190,142};
     const Vector2f texturePosition[2] = {Vector2f(0,284),Vector2f(0,0)};
-    const Vector2f spriteOrigin[2] = {Vector2f(-253.0,95.0),Vector2f(-260.0,10.0)};
+    const Vector2f spriteOrigin[2] = {Vector2f(-234.0,10.0),Vector2f(-260.0,10.0)};
 
     int condition;
     bool target;
+    bool game_target_condition;
+    bool is_execution;
 
     double angle;
 };

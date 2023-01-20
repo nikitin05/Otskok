@@ -33,7 +33,9 @@ private:
     Ball m_Ball;
     Circle m_Circle;
 
-    float target;
+    int target;
+    int target_num = 0;
+    Text target_num_text;
     Text target_text;
 
     int game_speed = 100;
@@ -49,6 +51,10 @@ private:
     enum mode { game_12, game_16 };
     const char* game_mode_names[2] = { "12", "16"};
     int  game_mode = game_16;
+
+    enum target_condition { no,  yes};
+    const char* target_condition_names[2] = { "Выкл", "Вкл"};
+    int  game_target_condition = yes;
 
     int menu();
     void setLevel();

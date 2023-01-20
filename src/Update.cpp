@@ -51,12 +51,12 @@ void Engine::ShowFiles() {
 // если во всех целевых секторах стоит требуемое число игра завершается победой
 bool Engine::checkWin()
 {
-    bool ans = true;
+    int ans = 0;
     for(int i = 0; i < m_Circle.size[m_Circle.type]; i++)
     {
-        ans *= m_Circle.round[i].checkExecution(target);
+        ans += m_Circle.round[i].isExecution();
     }
-    return ans;
+    return (ans == target_num);
 }
 
 void impact(Ball &m_Ball, Circle &m_Circle, float dtAsSeconds)
@@ -93,6 +93,8 @@ void Engine::update(float dtAsSeconds)
             endEvent(1);
         }
         int ans = (m_Ball.condition + m_Circle.round[i].getCondition()) % 6;
+        m_Circle.round[i].update(ans);
+        m_Circle.round[i].checkExecution(target);
         m_Circle.round[i].update(ans);
         m_Ball.update(ans);
         impact(m_Ball, m_Circle, dtAsSeconds);

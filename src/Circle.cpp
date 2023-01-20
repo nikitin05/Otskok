@@ -23,7 +23,16 @@ void Segment::setPosition(int type, double angle, Vector2f position, Texture &te
     sprite.rotate(-this->angle);
     this->angle = angle;
     sprite.setTexture(texture);
-    sprite.setTextureRect(IntRect(texturePosition[type].x+width[type]*condition,texturePosition[type].y+height[type]*target,width[type],height[type]));
+    int texture_line = 0;
+    if(game_target_condition)
+    {
+        texture_line = target;
+    }
+    if(is_execution)
+    {
+        texture_line = 3;
+    }
+    sprite.setTextureRect(IntRect(texturePosition[type].x+width[type]*condition,texturePosition[type].y+height[type]*texture_line,width[type],height[type]));
     sprite.setOrigin(spriteOrigin[type]);
     sprite.rotate(angle);
     sprite.setPosition(position);
@@ -38,19 +47,30 @@ void Segment::update(double angle)
 void Segment::update(int condition)
 {
     this->condition = condition;
-    sprite.setTextureRect(IntRect(texturePosition[type].x+width[type]*condition,texturePosition[type].y+height[type]*target,width[type],height[type]));
+    int texture_line = 0;
+    if(game_target_condition)
+    {
+        texture_line = target;
+    }
+    if(is_execution)
+    {
+        texture_line = 2;
+    }
+    sprite.setTextureRect(IntRect(texturePosition[type].x+width[type]*condition,texturePosition[type].y+height[type]*texture_line,width[type],height[type]));
 }
 
 void Segment::update(bool target) {
     this->target = target;
 }
 
-bool Segment::checkExecution(int tar) {
-    if(target == 1 && condition != tar)
+void Segment::checkExecution(int tar) {
+    if(target != 1 || condition != tar)
     {
-        return false;
+        is_execution = false;
     }
-    return true;
+    else{
+        is_execution =  true;
+    }
 }
 
 int Segment::getCondition() {
@@ -59,6 +79,14 @@ int Segment::getCondition() {
 
 double Segment::getAngle() {
     return angle;
+}
+
+void Segment::setGameTargetCondition(int game_target_condition) {
+    this->game_target_condition = game_target_condition;
+}
+
+bool Segment::isExecution() {
+    return is_execution;
 }
 
 

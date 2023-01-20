@@ -7,16 +7,6 @@
 
 void Engine::setLevel() {
 
-    m_Circle.type = game_mode;
-    for(int i = 0; i < m_Circle.size[m_Circle.type]; i++)
-    {
-        bool target = rand() % 2;
-        m_Circle.round[i].setPosition(game_mode,360.0/m_Circle.size[m_Circle.type] * i, m_Circle.centerPosition, m_Circle.segment);
-        m_Circle.round[i].update(target);
-        m_Circle.round[i].update(rand() % 6);
-
-    }
-
     target = rand() % 6;
     target_text.setFont(font);
     target_text.setCharacterSize(24);
@@ -27,6 +17,32 @@ void Engine::setLevel() {
     position.x = 900;
     position.y = 300;
     target_text.setPosition(position);
+
+    m_Circle.type = game_mode;
+    target_num = 0;
+    for(int i = 0; i < m_Circle.size[m_Circle.type]; i++)
+    {
+        bool tar= (rand() % 3)/2;
+        target_num += tar;
+        if(game_target_condition == no)
+        {
+            tar = 1;
+        }
+        m_Circle.round[i].update(tar);
+        m_Circle.round[i].setPosition(game_mode,360.0/m_Circle.size[m_Circle.type] * i, m_Circle.centerPosition, m_Circle.segment);
+        m_Circle.round[i].update(rand() % 6);
+        m_Circle.round[i].checkExecution(target);
+        m_Circle.round[i].setGameTargetCondition(game_target_condition);
+        m_Circle.round[i].update(m_Circle.round[i].getCondition());
+    }
+    target_num_text.setFont(font);
+    target_num_text.setCharacterSize(24);
+    target_num_text.setString(std::to_string(target_num));
+    target_num_text.setFillColor(Color::Black);
+    target_num_text.setStyle(sf::Text::Bold);
+    position.x = 960;
+    position.y = 300;
+    target_num_text.setPosition(position);
 }
 
 Engine::Engine()
@@ -77,10 +93,13 @@ int Engine::menu()
     ImGui::SliderInt("Физическая визуализация", &condition_physicOverlay, 0, 1, condition_physicOverlay_name);
     ImGui::DragInt("Скорость игры (%)", &game_speed, 1, 1, 200, "%d%%", ImGuiSliderFlags_AlwaysClamp);
 
-    const char* game_mode_name = (game_mode >= 0 && game_mode  < 2) ? game_mode_names[game_mode ] : "Unknown";
+    const char* game_mode_name = (game_mode >= 0 && game_mode  < 2) ? game_mode_names[game_mode] : "Unknown";
     int old_game_mod = game_mode;
     ImGui::SliderInt("Игровой режим", &game_mode, 0, 1, game_mode_name);
-    if(old_game_mod != game_mode)
+    const char* game_target_condition_name = (game_target_condition >= 0 && game_target_condition < 2) ? target_condition_names[game_target_condition] : "Unknown";
+    int old_game_target_condition = game_target_condition;
+    ImGui::SliderInt("Конкретизация целевых секторов", &game_target_condition, 0, 1, game_target_condition_name);
+    if(old_game_mod != game_mode || old_game_target_condition != game_target_condition)
     {
         setLevel();
     }

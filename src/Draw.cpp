@@ -52,6 +52,7 @@ void Engine::draw()
         m_Window.draw(m_Circle.round[i].getSprite());
     }
     m_Window.draw(target_text);
+    m_Window.draw(target_num_text);
     ImGui::SFML::Render(m_Window);
     m_Window.display();
 }
