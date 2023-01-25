@@ -48,7 +48,7 @@ private:
 
     const int width[2] = {90,71};
     const int height[2] = {190,142};
-    const Vector2f texturePosition[2] = {Vector2f(0,284),Vector2f(0,0)};
+    const Vector2f texturePosition[2] = {Vector2f(426,0),Vector2f(0,0)};
     const Vector2f spriteOrigin[2] = {Vector2f(-234.0,10.0),Vector2f(-260.0,10.0)};
 
     int condition;
