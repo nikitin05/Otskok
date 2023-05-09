@@ -5,7 +5,6 @@
 #ifndef OTSKOK_ENGINE_H
 #define OTSKOK_ENGINE_H
 
-
 #include <imgui-SFML.h>
 #include <imgui.h>
 #include <SFML/Graphics.hpp>
@@ -20,11 +19,9 @@ class Engine
 {
 private:
     Clock clock;
-
     Vector2f Resolution;
     Vector2f event_resolution;
     RenderWindow m_Window;
-
     Sprite m_BackgroundSprite;
     Texture m_BackgroundTexture;
     Texture ball;

@@ -4,11 +4,8 @@
 
 #ifndef OTSKOK_BALL_H
 #define OTSKOK_BALL_H
-
-
 #include <SFML/Graphics.hpp>
 #include "Circle.h"
-
 
 struct event_impact
 {
@@ -36,9 +33,7 @@ using namespace sf;
 class Ball
 {
 private:
-
     Sprite sprite;
-
     Texture* texture;
 
 public:
@@ -49,24 +44,14 @@ public:
     Vector2f speed;
     float w_speed;
     float k_energy;
-
     Ball();
-
     Sprite getSprite();
     void setSprite(Texture &texture);
-
     int radius = 30;
-
     int condition;
-
     bool checkPosition(Circle circle);
-
     int checkSegment(Circle circle);
-
     void update(float elapsedTime);
-
     void update(int conidition);
 };
-
-
 #endif //OTSKOK_BALL_H

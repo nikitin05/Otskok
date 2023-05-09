@@ -25,15 +25,12 @@ public:
     void setPosition(int type, double angle, Vector2f position, Texture &texture);
 
     void update(double angle);
-
     void update(int condition);
-
     void update(bool target);
 
     void checkExecution(int tar);
 
     bool isExecution();
-
 
     int getCondition();
 

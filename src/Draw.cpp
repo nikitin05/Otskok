@@ -2,7 +2,6 @@
 #include "Function.h"
 #include "iostream"
 #include "thread"
-
 void Engine::impact_draw()
 {
     // задаём левый верхний край невидимого окна

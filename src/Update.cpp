@@ -1,15 +1,11 @@
 #include "Engine.h"
 #include "Function.h"
 
-
-
 static const char OUTPUT_PATH[255] = "resources/out.txt";
 
 using namespace sf;
 
 const double friction = 0.5;
-
-
 
 // запись в файл
 void Engine::saveToFile() {

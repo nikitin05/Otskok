@@ -62,7 +62,6 @@ Engine::Engine()
     // загрузка шрифта для кириллицы
     ImGuiIO& io = ImGui::GetIO();
     io.Fonts->Clear();
-    //io.Fonts->AddFontDefault();
 
     // нужно добавить файл со шрифтами и указать к нему путь
     io.Fonts->AddFontFromFileTTF("resources/arial.ttf", 16.f, NULL,
